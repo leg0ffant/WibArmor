@@ -22,3 +22,6 @@ BlackArchLinux is integrated in the deployment to specify armor based centered a
 ### License
 
 GNU General Public License v2.0
+
+## Donation via Paypal
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7KPZ6LUAF8Z9Y&lc=US&item_name=Alpharatz&item_number=wibarmor&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
