@@ -21,3 +21,4 @@ BlackArchLinux is integrated in the deployment to specify armor based centered a
 
 ### License
 
+GNU General Public License v2.0
