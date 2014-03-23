@@ -1,0 +1,62 @@
+# confirm you can access the internet
+if [[ ! $(curl -Is http://www.google.com/ | head -n 1) =~ "200 OK" ]]; then
+echo "Your Internet seems broken. Press Ctrl-C to abort or enter to continue."
+read
+fi
+
+# make 2 partitions on the disk with main partition in LVM flag
+parted -s /dev/sda mklabel gpt
+parted -s /dev/sda mkpart primary 0% 200m
+parted -s /dev/sda mkpart primary 200m 100%
+parted print
+#set LVM flag
+parted -s /dev/sda set 2 lvm on
+parted print
+#setup logical volume
+pvcreate /dev/sda2
+
+# make filesystems
+# /boot
+mkfs.ext2 /dev/sda1
+# /
+mkfs.ext4 /dev/sda2
+
+# set up /mnt
+mount /dev/sda2 /mnt
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
+ 
+# rankmirrors to make this faster (though it takes a while)
+mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
+pacman -Syy
+
+# install base packages (take a coffee break if you have slow internet)
+pacstrap /mnt base linux-lts openssh wget
+
+# install syslinux
+arch-chroot /mnt pacman -S syslinux --noconfirm
+
+# copy ranked mirrorlist over
+cp /etc/pacman.d/mirrorlist* /mnt/etc/pacman.d
+
+# generation fstab
+gensfstab -L -p /mnt >>/mnt/etc/fstab
+
+# chroot
+arch-chroot /mnt /bin/bash <<EOF
+
+# Add repository BlackArch
+curl -s http://blackarch.org/strap.sh | sh
+#Editing pacman.conf
+echo "[blackarch]\nServer = http://blackarch.pi3rrot.net/blackarch/$repo/os/$arch" >>/etc/pacman.conf
+pacman -Syu
+
+
+
+
+
+
+
+
+mkinitcpio -p linux-lts
