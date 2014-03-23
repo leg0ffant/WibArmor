@@ -24,6 +24,8 @@ All Website with high standard to integrate SSL certification include:
 - E-commerce Website
 - Institution & government Website
 - Specific user with high need of cybersecurity
+- Enterprise login page website
+etc...
 
 ### License
 
