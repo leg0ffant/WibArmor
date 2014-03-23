@@ -19,6 +19,12 @@ BlackArchLinux is integrated in the deployment to specify armor based centered a
 
 <a href="http://blackarch.org/download.html">BlackArchLinux repository</a>
 
+### Application
+All Website with high standard to integrate SSL certification include:
+- E-commerce Website
+- Institution & government Website
+- Specific user with high need of cybersecurity
+
 ### License
 
 GNU General Public License v2.0
